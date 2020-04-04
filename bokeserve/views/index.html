@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui:ios">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>博客后台管理系统</title>
+    <link rel="stylesheet" href="/node_modules/semantic-ui/dist/semantic.min.css">
+    <link rel="stylesheet" href="/node_modules/mditor/dist/css/mditor.min.css">
+    <link rel="stylesheet" href="/assets/css/artical-add.css">
+</head>
+
+<body>
+    <form action="">
+        <div class="ui form">
+            <div class="field title">
+                <label>文章标题</label>
+                <input name="title" type="text">
+            </div>
+        </div>
+        <div class="field selection">
+            <label>文章分类</label>
+            <select class="ui fluid dropdown" name="sort">
+                <option value="服务器">服务器</option>
+                <option value="mysql">mysql</option>
+                <option value="js">js</option>
+                <option value="css">css</option>
+                <option value="node">node</option>
+            </select>
+        </div>
+        <textarea name="content" id="editor"></textarea>
+    </form>
+    <div class="ui inverted segment">
+
+        <button class="submit ui inverted violet button">紫罗兰色</button>
+        <button class="ui inverted purple button">紫色</button>
+
+    </div>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/axios/dist/axios.min.js"></script>
+    <script src="/node_modules/semantic-ui/dist/semantic.min.js"></script>
+    <script src="/node_modules/mditor/dist/js/mditor.min.js"></script>
+    <script>
+        axios.defaults.baseURL = 'https://www.liuarui.com:443/api'
+        var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+        var submit = document.querySelector('.submit')
+        submit.onclick = async function () {
+            var { data, status } = await axios.post('/artical/add', $('form').serialize())
+        }
+    </script>
+</body>
+
+</html>
